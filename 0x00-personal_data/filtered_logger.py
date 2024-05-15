@@ -27,7 +27,7 @@ class RedactingFormatter(logging.Formatter):
     FORMAT = "[HOLBERTON] %(name)s %(levelname)s %(asctime)-15s: %(message)s"
     SEPARATOR = ";"
 
-    def __init__(self, fields: Sequence[str]) -> None:
+    def __init__(self, fields: List[str]) -> None:
         """
         Sets the format string of formatter.
         Sets the fields to be redacted.
