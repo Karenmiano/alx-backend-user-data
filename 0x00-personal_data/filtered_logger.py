@@ -37,10 +37,7 @@ class RedactingFormatter(logging.Formatter):
         self.fields = fields
 
     def format(self, record: logging.LogRecord) -> str:
-        """
-        Overrides logging.Formatter.format to redact the fields
-        in logging.LogRecord.msg
-        """
+        """Overrides logging.Formatter.format to redact the fields"""
         record.msg = filter_datum(self.fields, self.REDACTION,
                                   record.getMessage(), self.SEPARATOR)
         return super(RedactingFormatter, self).format(record)
