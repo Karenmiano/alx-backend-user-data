@@ -31,3 +31,7 @@ class Employee:
 emp_1 = Employee('Jonh', 'Doe')
 emp_2 = Employee('Jane', 'Doe')
 logger.info("Just my own observations.")
+
+        original_msg = super(RedactingFormatter, self).format(record)
+        return filter_datum(self.fields, self.REDACTION, original_msg,
+                            self.SEPARATOR)

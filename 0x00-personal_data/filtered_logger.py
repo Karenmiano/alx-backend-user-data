@@ -41,6 +41,6 @@ class RedactingFormatter(logging.Formatter):
         Overrides logging.Formatter.format to redact the fields
         in logging.LogRecord.msg
         """
-        original_msg = super(RedactingFormatter, self).format(record)
-        return filter_datum(self.fields, self.REDACTION, original_msg,
-                            self.SEPARATOR)
+        record.msg = filter_datum(self.fields, self.REDACTION,
+                                  record.getMessage(), self.SEPARATOR)
+        return super(RedactingFormatter, self).format(record)
