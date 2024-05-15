@@ -2,8 +2,9 @@
 """
 Defines the function filter_datum.
 """
+import logging
 import re
-from typing import List
+from typing import List, Sequence
 
 
 def filter_datum(fields: List[str], redaction: str,
@@ -16,3 +17,30 @@ def filter_datum(fields: List[str], redaction: str,
         message = re.sub(r'{}=[^{}]*'.format(field, separator),
                          "{}={}".format(field, redaction), message)
     return message
+
+
+class RedactingFormatter(logging.Formatter):
+    """ Redacting Formatter class
+        """
+
+    REDACTION = "***"
+    FORMAT = "[HOLBERTON] %(name)s %(levelname)s %(asctime)-15s: %(message)s"
+    SEPARATOR = ";"
+
+    def __init__(self, fields: Sequence[str]) -> None:
+        """
+        Sets the format string of formatter.
+        Sets the fields to be redacted.
+        """
+        super(RedactingFormatter, self).__init__(self.FORMAT)
+        self.fields = fields
+
+    def format(self, record: logging.LogRecord) -> str:
+        """
+        Overrides logging.Formatter.format to redact the fields
+        in logging.LogRecord.msg
+        """
+        original_msg = super().format(record)
+        redacted_msg = filter_datum(self.fields, self.REDACTION, original_msg,
+                                    self.SEPARATOR).replace(";", "; ")
+        return redacted_msg
