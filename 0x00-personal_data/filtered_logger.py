@@ -10,8 +10,7 @@ from typing import List
 PII_FIELDS = ("name", "email", "phone", "ssn", "password")
 
 
-def filter_datum(fields: List[str], redaction: str,
-                 message: str, separator: str) -> str:
+def filter_datum(fields: List[str], redaction: str, message: str, separator: str) -> str:
     """Replaces the values of fields with a redaction string."""
     for field in fields:
         message = re.sub(r'{}=[^{}]*'.format(field, separator),
