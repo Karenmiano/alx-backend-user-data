@@ -2,10 +2,11 @@
 """
 Defines the function filter_datum.
 """
+import mysql.connector
 import logging
 import re
 from typing import List
-
+from os import environ
 
 PII_FIELDS = ("name", "email", "phone", "ssn", "password")
 
@@ -34,6 +35,20 @@ def get_logger() -> logging.Logger:
     logger.addHandler(stream_handler)
 
     return logger
+
+
+def get_db() -> mysql.connector.connection.MySQLConnection:
+    """
+    Sets up connection to mysql using mysql.connecter
+    """
+    connection = mysql.connector.connect(
+        user=environ.get("PERSONAL_DATA_DB_USERNAME", "root"),
+        password=environ.get("PERSONAL_DATA_DB_PASSWORD", ""),
+        host=environ.get("PERSONAL_DATA_DB_HOST", "localhost"),
+        database=environ.get("PERSONAL_DATA_DB_NAME")
+    )
+
+    return connection
 
 
 class RedactingFormatter(logging.Formatter):
