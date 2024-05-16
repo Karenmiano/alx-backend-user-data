@@ -3,6 +3,7 @@
 Defines the function filter_datum.
 """
 from mysql.connector import connection
+import mysql.connector
 import logging
 import re
 from typing import List
@@ -37,7 +38,7 @@ def get_logger() -> logging.Logger:
     return logger
 
 
-def get_db() -> connection.MySQLConnection:
+def get_db() -> mysql.connector.connection.MySQLConnection:
     """
     Sets up connection to mysql using mysql.connecter
     """
