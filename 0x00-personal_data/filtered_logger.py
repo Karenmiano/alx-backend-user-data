@@ -53,6 +53,25 @@ def get_db() -> mysql.connector.connection.MySQLConnection:
     return cnxn
 
 
+def main() -> None:
+    """
+    Gets users from database and logs their entries in filtered form.
+    """
+    db = get_db()
+    cursor = db.cursor()
+    users_query = "SELECT * FROM users"
+    cursor.execute(users_query)
+
+    logger = get_logger()
+
+    for (name, email, phone,
+         ssn, password, ip, last_login, user_agent) in cursor:
+        message = (f"name={name}; email={email}; phone={phone}; ssn={ssn}; "
+                   f"password={password}; ip={ip}; last_login={last_login}; "
+                   f"user_agent={user_agent};")
+        logger.info(message)
+
+
 class RedactingFormatter(logging.Formatter):
     """
     Redacting Formatter class
@@ -75,3 +94,7 @@ class RedactingFormatter(logging.Formatter):
         original_msg = super().format(record)
         return filter_datum(self.fields, self.REDACTION, original_msg,
                             self.SEPARATOR)
+
+
+if __name__ == '__main__':
+    main()
