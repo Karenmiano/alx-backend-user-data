@@ -71,6 +71,9 @@ def main() -> None:
                    f"user_agent={user_agent};")
         logger.info(message)
 
+    cursor.close()
+    db.close()
+
 
 class RedactingFormatter(logging.Formatter):
     """
