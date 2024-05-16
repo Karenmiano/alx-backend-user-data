@@ -35,7 +35,7 @@ def get_logger() -> logging.Logger:
     stream_handler = logging.StreamHandler()
     stream_handler.setFormatter(formatter)
     logger.addHandler(stream_handler)
-    
+
     return logger
 
 
@@ -57,10 +57,7 @@ class RedactingFormatter(logging.Formatter):
         self.fields = fields
 
     def format(self, record: logging.LogRecord) -> str:
-        """
-        Overrides logging.Formatter.format to redact the fields
-        in logging.LogRecord.msg
-        """
+        """Overrides logging.Formatter.format to redact the fields"""
         original_msg = super().format(record)
         return filter_datum(self.fields, self.REDACTION, original_msg,
                             self.SEPARATOR)
