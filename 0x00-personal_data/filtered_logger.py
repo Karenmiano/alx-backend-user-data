@@ -2,7 +2,7 @@
 """
 Defines the function filter_datum.
 """
-import mysql.connector
+from mysql.connector import connection
 import logging
 import re
 from typing import List
@@ -37,18 +37,18 @@ def get_logger() -> logging.Logger:
     return logger
 
 
-def get_db():
+def get_db() -> connection.MySQLConnection:
     """
     Sets up connection to mysql using mysql.connecter
     """
-    connection = mysql.connector.connect(
+    cnxn = connection.MySQLConnection(
         user=environ.get("PERSONAL_DATA_DB_USERNAME", "root"),
         password=environ.get("PERSONAL_DATA_DB_PASSWORD", ""),
         host=environ.get("PERSONAL_DATA_DB_HOST", "localhost"),
         database=environ.get("PERSONAL_DATA_DB_NAME")
     )
 
-    return connection
+    return cnxn
 
 
 class RedactingFormatter(logging.Formatter):
