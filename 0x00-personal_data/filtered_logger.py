@@ -37,7 +37,7 @@ def get_logger() -> logging.Logger:
     return logger
 
 
-def get_db() -> mysql.connector.connection.MySQLConnection:
+def get_db():
     """
     Sets up connection to mysql using mysql.connecter
     """
