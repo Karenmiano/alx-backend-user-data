@@ -26,7 +26,7 @@ excluded_paths = [
 
 
 @app.before_request
-def bef_req():
+def bef_req() -> None:
     """
     Check authentication credentials.
     """
