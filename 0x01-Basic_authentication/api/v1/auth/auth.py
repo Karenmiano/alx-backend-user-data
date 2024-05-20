@@ -21,7 +21,7 @@ class Auth:
             return True
         return False
     
-    def authorization_header(self, request=None) -> str:
+    def authorization_header(self, request=None) -> str | None:
         """
         Retrieves value passed in Authorization header in request.
         """
