@@ -5,6 +5,7 @@ BasicAuth module.
 from api.v1.auth.auth import Auth
 import base64
 import binascii
+from typing import Tuple
 
 
 class BasicAuth(Auth):
@@ -47,3 +48,19 @@ class BasicAuth(Auth):
             return str_decode
         except binascii.Error:
             return None
+
+    def extract_user_credentials(
+            self,
+            decoded_base64_authorization_header: str) -> Tuple[str]:
+        if decoded_base64_authorization_header is None:
+            return (None, None)
+
+        if not isinstance(decoded_base64_authorization_header, str):
+            return (None, None)
+
+        if ":" not in decoded_base64_authorization_header:
+            return (None, None)
+
+        credentials = tuple(decoded_base64_authorization_header.split(":"))
+
+        return credentials
