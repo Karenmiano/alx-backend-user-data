@@ -51,7 +51,10 @@ class BasicAuth(Auth):
 
     def extract_user_credentials(
             self,
-            decoded_base64_authorization_header: str) -> Tuple[str]:
+            decoded_base64_authorization_header: str) -> (str, str):
+        """
+        Extract user credentials.
+        """
         if decoded_base64_authorization_header is None:
             return (None, None)
 
