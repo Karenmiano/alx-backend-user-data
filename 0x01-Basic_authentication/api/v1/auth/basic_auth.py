@@ -68,8 +68,9 @@ class BasicAuth(Auth):
         credentials = tuple(decoded_base64_authorization_header.split(":"))
 
         return credentials
-    
-    def user_object_from_credentials(self, user_email: str, user_pwd: str) -> TypeVar('User'):
+
+    def user_object_from_credentials(
+            self, user_email: str, user_pwd: str) -> TypeVar('User'):
         """
         Returns a user object based on email and password.
         """
@@ -78,7 +79,7 @@ class BasicAuth(Auth):
 
         if user_pwd is None or not isinstance(user_pwd, str):
             return None
-        
+
         User.load_from_file()
         users = User.search({"email": user_email})
 
