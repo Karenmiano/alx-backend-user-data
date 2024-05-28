@@ -21,6 +21,9 @@ if AUTH_TYPE == "auth":
 elif AUTH_TYPE == "basic_auth":
     from api.v1.auth.basic_auth import BasicAuth
     auth = BasicAuth()
+elif AUTH_TYPE == "session_auth":
+    from api.v1.auth.session_auth import SessionAuth
+    auth = SessionAuth()
 
 excluded_paths = [
     '/api/v1/status/',
@@ -40,9 +43,9 @@ def bef_req() -> None:
         if auth.require_auth(request.path, excluded_paths):
             if auth.authorization_header(request) is None:
                 abort(401)
-            if auth.current_user(request) is None:
-                abort(403)
             request.current_user = auth.current_user(request)
+            if request.current_user is None:
+                abort(403)
 
 
 @app.errorhandler(404)
