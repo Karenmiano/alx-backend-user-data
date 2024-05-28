@@ -6,6 +6,7 @@ from api.v1.auth.auth import Auth
 import uuid
 from os import getenv
 
+
 class SessionAuth(Auth):
     """
     SessionAuth class
@@ -41,7 +42,7 @@ class SessionAuth(Auth):
         """
         if request is None:
             return None
-        
+
         SESSION_NAME = getenv("SESSION_NAME")
         session_id = request.cookies.get(SESSION_NAME)
 
