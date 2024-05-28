@@ -31,6 +31,6 @@ class SessionAuth(Auth):
         if session_id is None or not isinstance(session_id, str):
             return None
 
-        user_id = SessionAuth.user_id_by_session_id.get("session_id")
+        user_id = SessionAuth.user_id_by_session_id.get(session_id)
 
         return user_id
