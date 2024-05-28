@@ -4,7 +4,7 @@ Defines class SessionAuth
 """
 from api.v1.auth.auth import Auth
 import uuid
-
+from os import getenv
 
 class SessionAuth(Auth):
     """
@@ -34,3 +34,15 @@ class SessionAuth(Auth):
         user_id = SessionAuth.user_id_by_session_id.get(session_id)
 
         return user_id
+
+    def session_cookie(self, request=None):
+        """
+        Retrieves session_id from session cookies
+        """
+        if request is None:
+            return None
+        
+        SESSION_NAME = getenv("SESSION_NAME")
+        session_id = request.cookies.get(SESSION_NAME)
+
+        return session_id
