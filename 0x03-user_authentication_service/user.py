@@ -12,7 +12,7 @@ class User(Base):
     """
     Model user defines the database table
     """
-    __tablenale__ = "users"
+    __tablename__ = "users"
 
     id = Column(Integer, primary_key=True)
     email = Column(String, nullable=False)
