@@ -49,8 +49,8 @@ class DB:
         if user is None:
             raise NoResultFound
         return user
-    
-    def update_user(self, user_id: int, **kwargs):
+
+    def update_user(self, user_id: int, **kwargs) -> None:
         """
         Updates a user in the database.
         """
@@ -60,4 +60,3 @@ class DB:
                 raise ValueError
             setattr(user, key, value)
         self._session.commit()
-        return
