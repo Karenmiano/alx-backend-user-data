@@ -11,5 +11,5 @@ from sqlalchemy.orm.exc import NoResultFound
 
 my_db = DB()
 
-find_user = my_db.find_user_by(no_email="test@test.com")
+find_user = my_db.find_user_by()
 print(find_user.id)
