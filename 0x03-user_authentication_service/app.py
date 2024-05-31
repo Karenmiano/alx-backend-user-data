@@ -14,7 +14,7 @@ def welcome() -> str:
     """
     Route to welcome.
     """
-    jsonify({"message": "Bienvenue"})
+    return jsonify({"message": "Bienvenue"})
 
 
 @app.route("/users", methods=['POST'], strict_slashes=False)
@@ -32,4 +32,4 @@ def register() -> str:
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port="5000")
+    app.run(host="0.0.0.0", port="5000", debug=True)
