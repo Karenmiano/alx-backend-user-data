@@ -10,7 +10,7 @@ AUTH = Auth()
 
 
 @app.route("/", strict_slashes=False)
-def welcome():
+def welcome() -> str:
     """
     Route to welcome.
     """
@@ -18,7 +18,7 @@ def welcome():
 
 
 @app.route("/users", methods=['POST'], strict_slashes=False)
-def register():
+def register() -> str:
     """
     Route to register users.
     """
@@ -32,4 +32,4 @@ def register():
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000, debug=True)
+    app.run(host="0.0.0.0", port="5000")
