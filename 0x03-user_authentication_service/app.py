@@ -53,7 +53,7 @@ def login():
 
 
 @app.route("/sessions", methods=["DELETE"], strict_slashes=False)
-def logout():
+def logout() -> :
     """
     Logout user.
     """
@@ -61,7 +61,7 @@ def logout():
     user = AUTH.get_user_from_session_id(session_id)
     if user is None:
         abort(403)
-    AUTH.destroy_session(user.id, session_id=None)
+    AUTH.destroy_session(user.id)
     redirect(url_for("/"))
 
 
