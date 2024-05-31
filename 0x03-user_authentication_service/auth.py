@@ -89,7 +89,7 @@ class Auth:
             self._db.update_user(user_id, session_id=None)
         except NoResultFound:
             return
-        
+
     def get_reset_password_token(self, email: str) -> str:
         """
         Generates reset password token.
