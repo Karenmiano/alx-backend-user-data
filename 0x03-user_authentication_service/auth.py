@@ -107,6 +107,8 @@ class Auth:
         Update password of user who has reset_token=reset_token.
         """
         try:
+            if reset_token is None:
+                raise ValueError
             user = self._db.find_user_by(reset_token=reset_token)
             hashed_password = _hash_password(password).decode("utf-8")
             self._db.update_user(
