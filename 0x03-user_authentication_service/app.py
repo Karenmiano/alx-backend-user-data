@@ -3,7 +3,13 @@
 Defines a flask app
 """
 from auth import Auth
-from flask import Flask, jsonify, request, abort
+from flask import (
+    Flask,
+    jsonify,
+    request,
+    abort,
+    redirect, url_for
+)
 
 app = Flask(__name__)
 AUTH = Auth()
@@ -44,6 +50,19 @@ def login():
         response.set_cookie("session_id", session_id)
         return response
     abort(401)
+
+
+@app.route("/sessions", methods=["DELETE"], strict_slashes=False)
+def logout():
+    """
+    Logout user.
+    """
+    session_id = request.cookies.get("session_id")
+    user = AUTH.get_user_from_session_id(session_id)
+    if user is None:
+        abort(403)
+    AUTH.destroy_session(user.id, session_id=None)
+    redirect(url_for("/"))
 
 
 if __name__ == "__main__":
