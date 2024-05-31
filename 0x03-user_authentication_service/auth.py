@@ -86,6 +86,6 @@ class Auth:
         Remove session_id of user.
         """
         try:
-           self._db.update_user(user_id, session_id=None) 
+            self._db.update_user(user_id, session_id=None)
         except NoResultFound:
             return
